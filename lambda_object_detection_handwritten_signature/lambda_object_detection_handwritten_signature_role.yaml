@@ -1,0 +1,40 @@
+Type: AWS::IAM::Role
+Properties:
+  AssumeRolePolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+    - Effect: Allow
+      Principal:
+        Service:
+          - lambda.amazonaws.com
+      Action:
+        - sts:AssumeRole
+  Path: "/"
+  Policies:
+    - PolicyName: lambda_object_detection_handwritten_signature_policy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:*
+            Resource: arn:aws:logs:*:*:*
+          - Effect: Allow
+            Action:
+              - sns:Publish
+            Resource:
+              "Fn::Sub": "arn:aws:sns:${AWS::Region}:${AWS::AccountId}:${pApplicationID}-${pApplicationName}-${pEnvironment}-${pSNStopicName}"
+          - Effect: Allow
+            Action:
+              - s3:GetObject*
+              - s3:ListObject*
+              - s3:ListBucket*
+              - kms:GenerateDataKey
+              - kms:Decrypt
+            Resource:
+              - "Fn::Sub": "arn:aws:s3:::${pApplicationID}-${pApplicationName}-${pEnvironment}-${pS3RawBucket}/*"
+
+
+
+
+

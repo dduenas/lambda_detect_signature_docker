@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Object Detection Handwritten Signature Lambda ECR Repository'
+
+Parameters:
+  pEnvironment:
+    Type: String
+  pApplicationID:
+    Type: String
+  pApplicationName:
+    Type: String
+  pS3CloudformationTempBucket:
+    Type: String
+  pS3RawBucket:
+    Type: String
+  pLogLevel:
+      Type: String
+  pSNStopicName:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9\-]*'
+
+Resources:
+
+  LambdaObjectDetectionHandwrittenSignatureECRRepo:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName:
+        "Fn::Sub": "${pApplicationID}-${pApplicationName}-${pEnvironment}-ecr-repository"
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: MUTABLE

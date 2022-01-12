@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Object Detection Handwritten Signature Lambda'
+
+Parameters:
+  pEnvironment:
+    Type: String
+  pApplicationID:
+    Type: String
+  pApplicationName:
+    Type: String
+  pS3CloudformationTempBucket:
+    Type: String
+  pS3RawBucket:
+    Type: String
+  pLogLevel:
+      Type: String
+  pSNStopicName:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9\-]*'
+
+Resources:
+
+  LambdaObjectDetectionHandwrittenSignature:
+    'Fn::Transform':
+      Name: 'AWS::Include'
+      Parameters:
+        Location: !Sub "s3://${pApplicationID}-${pApplicationName}-${pEnvironment}-${pS3CloudformationTempBucket}/lambda/lambda_object_detection_handwritten_signature/lambda_object_detection_handwritten_signature_lambda.yaml"
+  RoleLambdaObjectDetectionHandwrittenSignature:
+    'Fn::Transform':
+      Name: 'AWS::Include'
+      Parameters:
+        Location: !Sub "s3://${pApplicationID}-${pApplicationName}-${pEnvironment}-${pS3CloudformationTempBucket}/lambda/lambda_object_detection_handwritten_signature/lambda_object_detection_handwritten_signature_role.yaml"
+

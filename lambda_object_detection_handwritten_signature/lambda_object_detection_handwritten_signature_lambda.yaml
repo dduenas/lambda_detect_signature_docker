@@ -1,0 +1,22 @@
+Type: AWS::Serverless::Function
+Properties:
+  FunctionName:
+      "Fn::Sub": "${pApplicationID}-${pApplicationName}-${pEnvironment}-ObjectDetectionHandwrittenSignature"
+  PackageType: Image
+  ImageUri:
+    "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${pApplicationID}-${pApplicationName}-${pEnvironment}-ecr-repository:latest"
+  MemorySize: 10240
+  Timeout: 900
+  Role:
+    "Fn::GetAtt": RoleLambdaObjectDetectionHandwrittenSignature.Arn
+  Environment:
+    Variables:
+      LOG_LEVEL:
+         Ref: pLogLevel
+      SNS_ERROR_NAME:
+         "Fn::Sub": "${pApplicationID}-${pApplicationName}-${pEnvironment}-${pSNStopicName}"
+      FILE_BUCKET :
+         "Fn::Sub": "${pApplicationID}-${pApplicationName}-${pEnvironment}-${pS3RawBucket}"
+
+DependsOn:
+  - RoleLambdaObjectDetectionHandwrittenSignature

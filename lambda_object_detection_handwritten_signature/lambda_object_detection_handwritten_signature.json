@@ -1,0 +1,15 @@
+{
+	"Parameters" : {
+		"pEnvironment": "dev",
+		"pRegion": "us-east-1",
+		"pProfile": "p1",
+		"pAccountID": "767017227823",
+		"pApplicationID": "app001",
+		"pApplicationName": "app1",
+		"pS3CloudformationTempBucket": "s3-temp-cloudformation",
+		"pS3RawBucket": "s3-working-letters",
+		"pSNStopicName": "sns-generic-error",
+		"pLogLevel": "DEBUG"
+	}
+}
+

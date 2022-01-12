@@ -1,0 +1,13 @@
+{
+   "files_to_process":[
+      {
+         "targets":[
+            {
+               "path":"s3://app001-app1-dev-s3-working-letters/human-resources/WorkingLetterExample_pag1.png",
+               "width":200,
+               "height":200
+            }
+         ]
+      }
+   ]
+} 
